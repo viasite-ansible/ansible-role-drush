@@ -17,3 +17,25 @@
     dest: /etc/drush/drushrc.php
   when: drush_global_options
 
+- name: Ensure /usr/share/drush/commands exists
+  file:
+    name: /usr/share/drush/commands
+    state: directory
+  when: drush_global_modules
+
+- name: Install global drush modules from git
+  git:
+    repo: "{{ item.repo }}"
+    version: "{{ item.version | default('master') }}"
+    dest: "/usr/share/drush/commands/{{ item.name }}"
+    force: yes
+  with_items: "{{ drush_global_modules }}"
+  when: drush_global_modules
+
+#- name: Install global drush modules
+#  command: >
+#    {{ drush_path }} pm-download -y {{ item }} --destination=/usr/share/drush/commands
+#  args:
+#    creates: "/usr/share/drush/commands/{{ item }}"
+#  with_items: "{{ drush_global_modules }}"
+#  when: drush_global_modules

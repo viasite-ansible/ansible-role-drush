@@ -16,3 +16,4 @@ drush_composer_cli_options: "--prefer-dist --no-interaction"
 drush_clone_depth: 1
 
 drush_global_options:
+drush_global_modules: []
