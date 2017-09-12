@@ -4,3 +4,16 @@
 
 - include: source-install.yml
   when: drush_install_from_source
+
+- name: Ensure /etc/drush exists
+  file:
+    name: /etc/drush
+    state: directory
+  when: drush_global_options
+
+- name: /etc/drush/drushrc.php options
+  template:
+    src: drushrc.php.j2
+    dest: /etc/drush/drushrc.php
+  when: drush_global_options
+
