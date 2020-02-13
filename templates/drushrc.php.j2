@@ -1,4 +1,4 @@
 <?php
-{% for k,v in drush_global_options.iteritems() %}
+{% for k,v in drush_global_options.items() %}
 $options{{ k }} = {{ v }};
 {% endfor %}
